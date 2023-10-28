@@ -1,21 +1,47 @@
-// npm - global command, comes with node
-// npm --version
-// local dependency - use it only in this particular project
-// npm i <packageName>
+const {readFile} =require("fs")
 
-// global dependency - use it in any project
-// npm install -g <packageName>
-// sudo npm install -g <packageName> (mac)
+const getText = (path) =>{
+    return new Promise((resolve,rejects)=>{
+        readFile(path,"utf-8",(err,data)=>{
+            if(err){
+                rejects(err)
 
-// package.json - manifest file (stores important info about project/package) '
-// manual approach (create package. json in the root, create properties etc)
-// npm init (step by step, press enter to skip)
-// npm init -y (everything default)
+            }
+            else{
+                resolve(data)
+            }
+        })
+    })
+}
 
-const _ = require('lodash')
+// getText("./content/first.txt").then((result)=>{
+//     console.log(result)
+// }).catch((err)=>{
+//     console.log(err)
+// })
 
-const items = [1,2,3,4,[2,3,[4,5]]]
+// readFile("./content/first.txt","utf-8",(err,data)=>{
+//     if(err){
+//         console.log(err)
+//         return
+//     }
+//     else{
+//         console.log(data)
+//     }
 
-const newItems = _.flattenDeep(items)
+// })
 
-console.log(newItems)
+const start = async()=>{
+    try{
+        const first = await getText("./content/first.txt")
+        const second = await getText("./content/second.txt")
+    console.log(first,second)
+}
+catch(error){console.log(error);
+}
+    
+}
+
+start()
+
+// 3:06:53 https://www.youtube.com/watch?v=Oe421EPjeBE&t=6793s
